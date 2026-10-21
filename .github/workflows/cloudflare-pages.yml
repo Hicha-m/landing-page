@@ -16,20 +16,30 @@ concurrency:
 
 jobs:
   validate:
-    name: Validate static website
+    name: Validate collection
     runs-on: ubuntu-latest
     steps:
       - name: Checkout source
         uses: actions/checkout@11bd71901bbe5b1630ceea73d27597364c9af683 # v4.2.2
         with:
           persist-credentials: false
-      - name: Validate local assets and structure
+      - name: Validate static pages and manifest
         run: python3 scripts/validate_site.py
       - name: Validate JavaScript syntax
-        run: node --check script.js
+        run: |
+          set -eu
+          find . -type f -name '*.js' -not -path './public/*' -not -path './node_modules/*' -exec node --check {} \;
+      - name: Build publication directory
+        run: python3 scripts/build_site.py
+      - name: Verify output structure
+        run: |
+          test -s public/index.html
+          test -s public/data/projects.json
+          test -s public/pages/studiospace/index.html
+          test ! -e public/.github
 
   deploy:
-    name: Deploy production
+    name: Cloudflare Pages production
     needs: validate
     if: github.event_name != 'pull_request' && github.ref == 'refs/heads/main'
     runs-on: ubuntu-latest
@@ -42,13 +52,13 @@ jobs:
         uses: actions/checkout@11bd71901bbe5b1630ceea73d27597364c9af683 # v4.2.2
         with:
           persist-credentials: false
-      - name: Prepare minimal static artifact
-        run: |
-          mkdir -p dist
-          cp index.html styles.css script.js dist/
+      - name: Validate
+        run: python3 scripts/validate_site.py
+      - name: Build static files
+        run: python3 scripts/build_site.py
       - name: Deploy to Cloudflare Pages
-        uses: cloudflare/wrangler-action@v4
+        uses: cloudflare/wrangler-action@v3
         with:
           apiToken: ${{ secrets.CLOUDFLARE_API_TOKEN }}
           accountId: 0e52a0a9c70bfb137e85da4cdd8ac280
-          command: pages deploy dist --project-name=studiospace-landing --branch=main
+          command: pages deploy public --project-name=studiospace-landing --branch=main
