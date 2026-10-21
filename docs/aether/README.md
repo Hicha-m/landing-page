@@ -62,3 +62,19 @@ Le site est statique, sans framework JavaScript, sans backend, sans bundle runti
 La recette et les choix présentés ici sont **rédigés au moment de la livraison**. Les fichiers Git constituent la référence vérifiable. Le guide ne prétend pas reproduire précisément une version du site Stripe ni restituer des captures de référence archivées.
 
 **Limites de validation :** les vérifications structurelles, l'existence des chemins et la syntaxe JS ne remplacent pas des tests navigateur automatisés multi-résolutions, un audit d'accessibilité ou un test de performance.
+
+## Mise à jour V2 — 21 octobre 2026 : nouveau hero
+
+L'utilisateur a fourni une **capture d'écran du nouveau site Stripe France** et demandé de faire évoluer Aether en conséquence. Cette image était une référence de conception communiquée dans la conversation, **pas un asset repris dans le dépôt**.
+
+**Constats dans la capture :** navigation sur fond blanc, large espace blanc à gauche, texte sombre puis gris, CTA rectangulaires violet/blanc, ruban lumineux orange-rose-violet-bleu en diagonale sur la partie haute droite, bande de marques sous le hero. L'ancienne version Aether était plus saturée : dégradé en fond sur toute la surface et dashboard superposé au hero.
+
+**Décisions appliquées :**
+- V2 adopte une surface blanche et réduit la hauteur visuelle de la navigation.
+- Un ruban original `pages/aether/aurora-ribbon.svg` remplace les trois éléments `.aurora` au-dessus de la ligne de flottaison.
+- Le grand dashboard illustratif a été **retiré du hero** pour privilégier la typographie et les espaces négatifs ; les démonstrations produit restent plus bas dans la page.
+- Le texte marketing reste original à Aether ; les logos et le chiffre « PIB mondial » du site de référence ne sont pas repris.
+- La vignette `assets/aether-preview.svg` est mise à jour.
+- Les interactions des sections sous le hero restent présentes.
+
+**Limites :** le ruban est une composition SVG originale, non une copie de l'effet animé propriétaire Stripe. Le rendu peut différer de l'image fournie, surtout aux points de rupture mobile. Aucun audit comparatif pixel à pixel n'a été effectué.
