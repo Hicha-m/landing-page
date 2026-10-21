@@ -19,7 +19,7 @@ An immersive, responsive landing-page concept featuring motion, interactive gall
 </div>
 
 > [!IMPORTANT]
-> **Deployment status:** The Cloudflare Pages project is configured, but the live site will only be available after the source files are committed and the first deployment succeeds. The deployment badge above reflects GitHub Actions, not an invented success state.
+> **Deployment status:** The Cloudflare Pages project is configured, but the live URL requires a successful first deployment and a GitHub Actions Cloudflare token. The deployment badge above reflects GitHub Actions, not an invented success state.
 
 ![StudioSpace preview illustration](./assets/preview.svg)
 
@@ -59,9 +59,6 @@ Open **http://localhost:8080**. The site uses external Google Fonts and an exter
 python3 scripts/validate_site.py
 node --check script.js
 ```
-
-> [!NOTE]
-> If the repository has not yet received `index.html`, `styles.css`, `script.js` and `scripts/validate_site.py`, complete the source import first. This README is the documentation foundation.
 
 ## 📁 Project structure
 
