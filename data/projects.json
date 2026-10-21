@@ -16,6 +16,23 @@
       ],
       "image": "./assets/preview.svg",
       "url": "./pages/studiospace/"
+    },
+    {
+      "id": "aether",
+      "title": "Aether",
+      "number": "002",
+      "type": "FINTECH LANDING CONCEPT",
+      "category": "websites",
+      "summary": "Aurora gradients, animated financial dashboard, product stories and developer code tabs.",
+      "tags": [
+        "websites",
+        "fintech",
+        "stripe-inspired",
+        "animations",
+        "gradient"
+      ],
+      "image": "./assets/aether-preview.svg",
+      "url": "./pages/aether/"
     }
   ]
 }
