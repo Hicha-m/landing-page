@@ -15,6 +15,8 @@ Chaque décision est datée et reliée à son champ d'application. **Statut « r
 
 | ADR-009 | Aether, inspiration Stripe | Vérifiée dans le code | Concept statique « Aether » avec gradient animé, composants fictifs et exemples d'API non exécutables | Réaliser les patterns demandés sans copier la marque ni simuler de vrai paiement | Les données ne représentent aucun service réel ; voir [documentation](aether/README.md) |
 
+| ADR-010 | Aether V2, référence screenshot | Acceptée le 2026-10-21 | Hero blanc et ruban SVG original en remplacement du gradient plein écran | Suivre la nouvelle direction visuelle Stripe France fournie par capture tout en gardant un code et une identité distincts | CSS V2 ajouté sous les styles existants ; une future refonte pourra consolider les règles ; [rapport](aether/README.md) |
+
 ## Format d'une nouvelle décision
 
 ```md
