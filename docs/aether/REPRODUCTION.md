@@ -126,3 +126,31 @@ La recette initiale ci-dessus décrit la **V1** et les sections conservées. Pou
 **Contrôle de provenance :** voir [SOURCES.md](SOURCES.md#nouvelle-référence-fournie-par-lutilisateur--v2). La capture source est un élément de comparaison visuelle, pas un élément embarqué dans le site.
 
 **Observation à reproduire :** le texte doit rester lisible même lorsque le ruban le recouvre partiellement visuellement ; le ruban a `pointer-events:none` et les boutons restent actionnables. Les animations sont arrêtées lorsque l'utilisateur demande une réduction du mouvement.
+
+## Variante V3 — visualisation, thèmes, cartes et modale (22 octobre 2026)
+
+1. Dans `pages/aether/index.html`, insérer `#impact` avant `#solutions` avec quatre boutons `data-impact=0..3`, un `<canvas id="impact-canvas">`, le bouton `#theme-trigger` et six éléments `data-impact-theme`.
+2. Dans le JavaScript, créer quatre fonctions de géométrie regroupées dans `point(i, t)` : rayons divergents, points sur couronne elliptique, faisceau vertical oscillant et lignes convergentes en sablier. Tracer les segments avec `CanvasRenderingContext2D`, en utilisant une couleur alpha et quelques extrémités ponctuelles.
+3. Recalculer le canevas selon son `getBoundingClientRect()`, limiter le `devicePixelRatio` à 2, appeler `setTransform` pour garder des coordonnées CSS. Observer la taille avec `ResizeObserver`.
+4. Adapter `requestAnimationFrame` au mouvement réduit et à la visibilité réelle du canevas via `IntersectionObserver`. Les boutons d'indicateur actualisent leur `aria-pressed` et l'annonce `#impact-view-label`.
+5. Créer les six palettes d'ambiance dans `styles` (`night`, `dawn`, `sunrise`, `day`, `dusk`, `sunset`). Le menu est masqué via `hidden`, ouvert/fermé par `aria-expanded` et refermé avec Escape ou clic extérieur.
+6. Remplacer l'ancienne grille `.solution-grid` par `.solution-showcase`, cinq boutons/cartes graphiques et attributs `data-solution`. Le rendu doit s'adapter de 2+3 colonnes visuelles sur desktop à 1 colonne sur mobile.
+7. Construire **une seule** `#solution-modal` en dehors de `<main>`, avec un élément `role=dialog aria-modal=true`, titre, description, deux illustrations, avantages et section de produits voisins.
+8. Définir un dictionnaire `entries` pour renseigner titre et description de chaque solution. Gérer le clic sur carte, la fermeture, le retour de focus, Escape et le cycle Tab/Shift-Tab.
+9. Dans `styles.css`, utiliser un namespace de classes `impact-*`/`showcase-*`/`solution-*`. Tester tablette, mobile, scroll, navigation clavier et animations réduites.
+10. Exécuter `python3 scripts/validate_site.py`, `node --check pages/aether/script.js`, `python3 scripts/build_site.py`; vérifier ensuite le workflow et le déploiement Cloudflare.
+
+### Vérifications manuelles proposées
+
+| Action | Résultat attendu |
+| --- | --- |
+| Cliquer chacun des quatre chiffres | Forme de filaments différente et indicateur actif mis à jour |
+| Sélectionner chaque ambiance | Dégradé et teinte des filaments changés ; menu refermé |
+| Désactiver l'animation système | Forme statique visible, pas de boucle d'animation |
+| Passer à une autre section | Animation du Canvas suspendue hors écran |
+| Cliquer les cinq cartes | Modale avec titre et description adaptés |
+| Fermer via fond / croix / Escape | Modale fermée, focus rendu à la carte |
+| Naviguer par Tab dans la modale | Focus conservé dans la modale |
+| Essayer sur téléphone | Colonnes réorganisées et carte/modal sans débordement horizontal |
+
+**État :** liste de critères, non preuve de tests manuels réalisés. Les ressources Stripe originales ne sont pas nécessaires au rendu.
