@@ -11,6 +11,7 @@ Ce répertoire documente **comment les pages ont été imaginées, construites, 
 | Catalogue **FORMA** | [forma/](forma/README.md) | [sources](forma/SOURCES.md) | [reproduction](forma/REPRODUCTION.md) | [reproduction](forma/REPRODUCTION.md#criteres-dacceptation) |
 | Landing page **StudioSpace** | [studiospace/](studiospace/README.md) | [sources](studiospace/SOURCES.md) | [reproduction](studiospace/REPRODUCTION.md) | [reproduction](studiospace/REPRODUCTION.md#criteres-dacceptation) |
 | Landing page **Aether** | [aether/](aether/README.md) | [sources](aether/SOURCES.md) | [reproduction](aether/REPRODUCTION.md) | [reproduction](aether/REPRODUCTION.md#criteres-dacceptation) |
+| Landing page **Swell** | [swell/](swell/README.md) | [sources](swell/SOURCES.md) | [reproduction](swell/REPRODUCTION.md) | [reproduction](swell/REPRODUCTION.md#criteres-dacceptation) |
 | Nouvelle création | [template](TEMPLATE-LANDING-PAGE.md) | à remplir | à remplir | à remplir |
 
 **Documentation transverse :** [déploiement Cloudflare](DEPLOYMENT.md) · [registre des décisions](DECISIONS.md) · [guide d'ajout d'un projet](../data/README.md).
@@ -44,6 +45,7 @@ python3 scripts/validate_site.py
 node --check script.js
 node --check pages/studiospace/script.js
 node --check pages/aether/script.js
+node --check pages/swell/script.js
 python3 scripts/build_site.py
 python3 -m http.server 8080
 ```
