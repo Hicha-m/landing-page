@@ -1,0 +1,20 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="1200" height="620" viewBox="0 0 1200 620" role="img" aria-labelledby="title desc">
+<title id="title">StudioSpace landing page preview</title>
+<desc id="desc">A stylized illustration of the StudioSpace hero with an editorial headline and abstract preview</desc>
+<defs><linearGradient id="bg" x2="1" y2="1"><stop stop-color="#201924"/><stop offset="1" stop-color="#322638"/></linearGradient><linearGradient id="photo" x2="1" y2="1"><stop stop-color="#ca9b80"/><stop offset="1" stop-color="#7c8a7e"/></linearGradient></defs>
+<rect width="1200" height="620" fill="url(#bg)"/>
+<text x="70" y="70" fill="#fff" font-family="Arial,sans-serif" font-weight="bold" font-size="27" letter-spacing="3">STUDIOSPACE ✳</text>
+<text x="70" y="174" fill="#d7c4ef" font-family="Arial,sans-serif" font-weight="bold" font-size="18" letter-spacing="2">CREATE SOMETHING EXTRAORDINARY</text>
+<text x="65" y="295" fill="#fff" font-family="Arial,sans-serif" font-weight="bold" font-size="84">A website</text>
+<text x="65" y="395" fill="#fff" font-family="Arial,sans-serif" font-weight="bold" font-size="84">makes it real.</text>
+<text x="70" y="449" fill="#ded2df" font-family="Arial,sans-serif" font-size="22">Turn your big idea into a beautiful online presence.</text>
+<rect x="70" y="486" width="228" height="57" rx="28" fill="#fff"/><text x="101" y="521" font-family="Arial,sans-serif" font-weight="bold" font-size="16">GET STARTED ↗</text>
+<rect x="640" y="172" width="498" height="352" rx="22" fill="#6c7c72"/>
+<rect x="672" y="199" width="434" height="283" rx="13" fill="url(#photo)"/>
+<ellipse cx="826" cy="341" rx="103" ry="103" fill="#ead1a6"/>
+<ellipse cx="1004" cy="332" rx="72" ry="107" fill="#315146"/>
+<text x="709" y="285" font-family="Arial,sans-serif" font-size="40" fill="#fff" font-weight="bold">Every idea</text>
+<text x="709" y="330" font-family="Arial,sans-serif" font-size="40" fill="#fff" font-weight="bold">has a story.</text>
+<rect x="808" y="347" width="64" height="64" rx="32" fill="white"/><path d="M832 365L855 379 832 394Z" fill="#201924"/>
+<text x="73" y="591" fill="#bdb1c4" font-family="Arial,sans-serif" font-size="13" letter-spacing="2">INDEPENDENT DESIGN CONCEPT • VANILLA WEB STACK</text>
+</svg>
