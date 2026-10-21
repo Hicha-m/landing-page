@@ -62,6 +62,7 @@ Project configuration, `.github/`, documentation, and local tools are intentiona
 | Collection | `/` |
 | StudioSpace | `/pages/studiospace/` |
 | Aether | `/pages/aether/` |
+| Swell | `/pages/swell/` |
 | Manifest | `/data/projects.json` |
 
 Cloudflare Pages serves `index.html` for directory URLs.
