@@ -42,3 +42,11 @@ La page publique `https://stripe.com/fr` présente notamment une introduction su
 Les « 124 590,80 € », « 18,4 % », « 8 450 € », taux de rétention, etc., sont des **nombres de maquette**. Ne jamais les utiliser comme métriques réelles, promesses produit ou résultats d'une organisation.
 
 L'adresse `api.example.invalid` et les objets `createDemoClient` / `fictional_aether` sont inventés : **pas d'API de paiement activée**.
+
+## Nouvelle référence fournie par l'utilisateur — V2
+
+- **S-12 — Capture utilisateur :** screenshot du site `https://stripe.com/fr`, transmis dans la conversation le **21 octobre 2026**. L'image montre un hero à grand fond blanc, ruban chromatique oblique à droite, texte aligné à gauche et CTA violet. L'image n'a pas été intégrée au dépôt ni publiée.
+- **S-13 — Site officiel :** [Stripe France](https://stripe.com/fr), reconsulté lors de la mise à jour ; texte et sections publiques utilisés pour vérifier la direction générale, sans reproduire les formulations. La mise en forme exacte est principalement fondée sur la capture utilisateur.
+- **Asset neuf :** `pages/aether/aurora-ribbon.svg` est créé pour Aether ; `assets/aether-preview.svg` est sa vignette stylisée. Aucun fichier image Stripe n'est importé.
+
+**Écart contrôlé :** le mot-symbole Aether, son message, ses faux partenaires, ses chiffres et ses CTA diffèrent volontairement des contenus de Stripe. Les « faux partenaires » sont explicitement qualifiés d'imaginaires sous la rangée de logos.
