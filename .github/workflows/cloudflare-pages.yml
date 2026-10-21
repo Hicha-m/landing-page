@@ -42,9 +42,13 @@ jobs:
         uses: actions/checkout@11bd71901bbe5b1630ceea73d27597364c9af683 # v4.2.2
         with:
           persist-credentials: false
+      - name: Prepare minimal static artifact
+        run: |
+          mkdir -p dist
+          cp index.html styles.css script.js dist/
       - name: Deploy to Cloudflare Pages
         uses: cloudflare/wrangler-action@v3
         with:
           apiToken: ${{ secrets.CLOUDFLARE_API_TOKEN }}
           accountId: 0e52a0a9c70bfb137e85da4cdd8ac280
-          command: pages deploy . --project-name=studiospace-landing --branch=main
+          command: pages deploy dist --project-name=studiospace-landing --branch=main
