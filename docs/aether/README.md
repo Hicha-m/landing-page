@@ -78,3 +78,27 @@ L'utilisateur a fourni une **capture d'écran du nouveau site Stripe France** et
 - Les interactions des sections sous le hero restent présentes.
 
 **Limites :** le ruban est une composition SVG originale, non une copie de l'effet animé propriétaire Stripe. Le rendu peut différer de l'image fournie, surtout aux points de rupture mobile. Aucun audit comparatif pixel à pixel n'a été effectué.
+
+## V3 — Galerie de solutions et visualisation interactive (22 octobre 2026)
+
+### Demande et références fournies
+
+L'utilisateur a transmis **neuf captures** de la nouvelle page Stripe France montrant : une section sombre avec titre centré, quatre grands indicateurs sélectionnables, une visualisation filamentaire qui change de forme, des ambiances lumineuses (« Aube », « Lever du soleil », « Journée », « Crépuscule », « Coucher du soleil », « Nuit »), une grille de cartes produit et une modale de présentation détaillée. Les captures de Stripe sont **des références uniquement** : elles ne sont pas publiées comme ressources du site.
+
+### Choix d'implémentation
+
+- Nouvelle section `#impact`, entre bande de marques et galerie de solutions ; graphiques tracés en temps réel avec **Canvas 2D natif**, sans bibliothèque et sans assets tiers.
+- Quatre boutons `data-impact` (rays, orbital globe, beam, hourglass). Un seul actif à la fois avec `aria-pressed` et une annonce textuelle.
+- Six thèmes `data-impact-theme` avec menu déroulant ; les palettes sont propres à Aether, pas des copies exactes de Stripe.
+- Dessin haute densité via `devicePixelRatio`, adaptation par `ResizeObserver`, animation suspendue hors écran et désactivée si `prefers-reduced-motion`.
+- Grille asymétrique de **cinq cartes** `data-solution` illustrant paiement, facturation, commerce avec agent, carte virtuelle et activité globale ; les montants et interactions sont fictifs.
+- **Une seule modale accessible**, alimentée depuis un objet JavaScript ; fermeture backdrop/Escape/bouton, contrôle du focus, navigation vers les autres sections.
+- Tous les graphismes de démonstration sont produits par HTML, CSS, SVG ou Canvas du dépôt ; aucune photographie ni asset Stripe n'est copié.
+
+### Différences assumées avec les captures
+
+La visualisation est une réinterprétation mathématique des filaments et non une reproduction exacte de l'animation propriétaire. Les cinq cartes et leurs illustrations utilisent le vocabulaire Aether et ne reprennent ni les marques, ni les pictogrammes, ni les métriques contractuelles de Stripe. Il n'y a **aucune action bancaire réelle**.
+
+### Limites et risques à examiner
+
+La modale contient une démonstration, pas un parcours transactionnel ; il reste nécessaire de tester l'accessibilité et le rendu en navigateur sur plusieurs plateformes. Les captures d'écran, vidéos, mesures de performance et audits E2E ne sont pas encore archivés dans le dépôt.
