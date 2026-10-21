@@ -1,48 +1,73 @@
-# Continuous delivery — Cloudflare Pages
+# Deploying FORMA to Cloudflare Pages
 
-## Architecture
+## Target
 
-`main` → GitHub Actions validation → Wrangler Direct Upload → Cloudflare Pages.
+- Cloudflare Pages project: `studiospace-landing`
+- Cloudflare account: `0e52a0a9c70bfb137e85da4cdd8ac280`
+- Production branch: `main`
+- Production URL (after deployment): https://studiospace-landing.pages.dev/
 
-Production project: `studiospace-landing`
+The project already exists in Cloudflare Pages as a **Direct Upload** project. We deploy with GitHub Actions and Wrangler rather than attaching the project to the native Git integration.
 
-Target: https://studiospace-landing.pages.dev
+## One-time configuration
 
-This existing project was created using **Direct Upload**. Keep it and its subdomain: GitHub Actions with Wrangler deploys to the project without requiring Cloudflare's native Git integration.
+Create an API token in Cloudflare under **My Profile → API Tokens** with **Account → Cloudflare Pages → Edit**, restricted to your Cloudflare account.
 
-## Initial configuration
+In this GitHub repository, go to **Settings → Secrets and variables → Actions** and add **`CLOUDFLARE_API_TOKEN`** with the token value. Do not commit, paste, or log the token.
 
-1. Commit all source files to the `main` branch.
-2. Create a Cloudflare API token at https://dash.cloudflare.com/profile/api-tokens with **Account → Cloudflare Pages → Edit**, restricted to your Cloudflare account.
-3. In GitHub open **Settings → Secrets and variables → Actions → New repository secret** and create `CLOUDFLARE_API_TOKEN`. Do not share the value.
-4. Open **Actions → Validate and deploy to Cloudflare Pages**. Run the workflow on `main` if no new commit triggers it.
-5. Verify the deploy job and check the published URL.
+The GitHub workflow specifies the account ID directly. It is an identifier, not a secret.
 
-The account and project identifiers in the workflow are not secrets. Never store API tokens in repository files or logs.
+## Continuous deployment
 
-## Validation and deploy rules
+The workflow at `.github/workflows/cloudflare-pages.yml` does the following:
 
-| Trigger | Validation | Production deploy |
-| --- | --- | --- |
-| Pull request to `main` | Yes | No |
-| Push to `main` | Yes | Yes, after validation |
-| Manual run on `main` | Yes | Yes |
+1. Checks out the requested commit.
+2. Runs `python3 scripts/validate_site.py`, which checks the catalog and every nested landing page, local references and project manifest.
+3. Checks every project's JavaScript syntax with `node --check`.
+4. Runs `python3 scripts/build_site.py` to assemble the deployable site.
+5. On pushes to `main`, deploys `public/` with Wrangler to Cloudflare Pages.
 
-The project has no build command. Wrangler uploads the static files directly.
+Pull requests run validation **without deploying to production**. A manual workflow run on `main` can also initiate a production deployment.
+
+## Production files
+
+The generated `public/` directory is not checked into Git. It includes:
+
+```text
+public/
+├── index.html                 # FORMA collection
+├── styles.css
+├── script.js
+├── assets/
+├── data/projects.json
+└── pages/
+    └── studiospace/
+        ├── index.html         # StudioSpace standalone landing
+        ├── styles.css
+        └── script.js
+```
+
+Project configuration, `.github/`, documentation, and local tools are intentionally excluded.
+
+## URLs
+
+| Resource | URL |
+| --- | --- |
+| Collection | `/` |
+| StudioSpace | `/pages/studiospace/` |
+| Manifest | `/data/projects.json` |
+
+Cloudflare Pages serves `index.html` for directory URLs.
 
 ## Troubleshooting
 
-**Missing token** — confirm the repository secret `CLOUDFLARE_API_TOKEN` exists.
+- **Deployment fails with invalid token** — verify `CLOUDFLARE_API_TOKEN`, account scope and Pages Edit privilege.
+- **Validation fails** — run `python3 scripts/validate_site.py` locally and fix broken paths or JSON entries.
+- **404 on a landing page** — ensure `pages/<slug>/index.html` is committed and your project manifest uses `./pages/<slug>/`.
+- **Blank catalog** — verify the manifest was copied into `public/data/projects.json`. The frontend includes a one-project fallback in case of fetch failure.
+- **External video unavailable** — StudioSpace's demo MP4 comes from an external host and may fail due to network restrictions.
 
-**Token authorization failure** — confirm Pages Edit permission and account restriction.
-
-**Missing files / invalid HTML** — run `python3 scripts/validate_site.py` and `node --check script.js`.
-
-**Domain not available** — confirm a successful production deployment exists in Cloudflare Pages.
-
-**External video not loading** — the sample video requires network access; replace it with a locally hosted licensed file if reliability is important.
-
-## Cloudflare docs
+## Official documentation
 
 - https://developers.cloudflare.com/pages/how-to/use-direct-upload-with-continuous-integration/
 - https://developers.cloudflare.com/pages/get-started/direct-upload/
