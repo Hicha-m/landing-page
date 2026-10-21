@@ -1,5 +1,7 @@
 # Adding a landing page
 
+Existing examples: [StudioSpace](../docs/studiospace/README.md) and [Aether](../docs/aether/README.md).
+
 Each experience is a **self-contained static website** under `pages/<slug>/`. The root homepage is a catalog, not an individual experience.
 
 ## 1. Create the page
