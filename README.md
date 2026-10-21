@@ -19,7 +19,20 @@ A growing archive of immersive web experiences — each crafted with its own des
 ![StudioSpace, the first landing page in the FORMA collection](assets/preview.svg)
 
 > [!NOTE]
-> The collection is intentionally curated. Only completed experiences appear in the catalog. **The Cloudflare URL requires a successful first deployment and the `CLOUDFLARE_API_TOKEN` GitHub Actions secret.** The badge above reflects the actual workflow status.
+> The collection is intentionally curated. Only completed experiences appear in the catalog. **Deployment is managed by GitHub Actions using the configured Cloudflare secrets; check the live workflow status before assuming a new commit has shipped.** The badge above reflects the actual workflow status.
+
+## 📚 Documentation et reproductibilité
+
+**[Guide complet de traçabilité](docs/README.md)** — inspirations, sources, décisions, modes opératoires et limites vérifiables.
+
+| Landing page | Conception | Sources / inspirations | Refaire le projet |
+| --- | --- | --- | --- |
+| **FORMA** — catalogue | [Dossier](docs/forma/README.md) | [Sources](docs/forma/SOURCES.md) | [Mode opératoire](docs/forma/REPRODUCTION.md) |
+| **StudioSpace** | [Dossier](docs/studiospace/README.md) | [Sources](docs/studiospace/SOURCES.md) | [Mode opératoire](docs/studiospace/REPRODUCTION.md) |
+
+Pour chaque nouvelle page, utiliser le **[modèle documentaire](docs/TEMPLATE-LANDING-PAGE.md)** et conserver ses décisions dans le **[registre ADR](docs/DECISIONS.md)**.
+
+> Les sources historiques initiales ont été reconstituées à partir du code, des exigences et des références identifiées ; elles ne remplacent pas un journal d'exécution intégral.
 
 ## What is FORMA?
 
@@ -88,6 +101,7 @@ landing-page/
 │       ├── index.html            # Complete standalone page
 │       ├── styles.css
 │       └── script.js
+├── docs/                         # Provenance and step-by-step reconstruction
 ├── scripts/
 │   ├── validate_site.py          # Validate every website
 │   └── build_site.py             # Clean static publish folder
@@ -103,7 +117,7 @@ landing-page/
 3. Run validation. Push through a pull request.
 4. Merge to `main` to trigger the production deployment (when the Cloudflare API secret is configured).
 
-See [the step-by-step project authoring guide](data/README.md).
+See [the step-by-step project authoring guide](data/README.md) and [documentation template](docs/TEMPLATE-LANDING-PAGE.md).
 
 ## Validation
 
@@ -120,7 +134,7 @@ The deployment workflow publishes the clean `public/` output and does not expose
 
 The existing Cloudflare Pages project is **`studiospace-landing`**. GitHub Actions deploys on push to `main` after validation, with `CLOUDFLARE_API_TOKEN` stored as a repository secret.
 
-Read [Cloudflare deployment setup](docs/DEPLOYMENT.md). The live URL must not be considered confirmed until Cloudflare reports a successful deployment.
+Read [Cloudflare deployment setup](docs/DEPLOYMENT.md). For each new release, verify the GitHub Actions result and the Cloudflare Pages deployment state.
 
 ## Contributing & license
 
