@@ -17,6 +17,8 @@ Chaque décision est datée et reliée à son champ d'application. **Statut « r
 
 | ADR-010 | Aether V2, référence screenshot | Acceptée le 2026-10-21 | Hero blanc et ruban SVG original en remplacement du gradient plein écran | Suivre la nouvelle direction visuelle Stripe France fournie par capture tout en gardant un code et une identité distincts | CSS V2 ajouté sous les styles existants ; une future refonte pourra consolider les règles ; [rapport](aether/README.md) |
 
+| ADR-011 | Swell Figma-first | Acceptée le 2026-10-22 | Maquette Figma éditable avant création de la page statique; pas de copie des médias Swile | Relever le site source sans emprunter ses éléments propriétaires | HTML-to-Figma externe impossible sans Playwright MCP ; [rapport](swell/README.md) |
+
 ## Format d'une nouvelle décision
 
 ```md
