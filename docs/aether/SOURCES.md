@@ -50,3 +50,13 @@ L'adresse `api.example.invalid` et les objets `createDemoClient` / `fictional_ae
 - **Asset neuf :** `pages/aether/aurora-ribbon.svg` est créé pour Aether ; `assets/aether-preview.svg` est sa vignette stylisée. Aucun fichier image Stripe n'est importé.
 
 **Écart contrôlé :** le mot-symbole Aether, son message, ses faux partenaires, ses chiffres et ses CTA diffèrent volontairement des contenus de Stripe. Les « faux partenaires » sont explicitement qualifiés d'imaginaires sous la rangée de logos.
+
+## Références visuelles utilisateur — V3 (22/10/2026)
+
+- **S-14 : neuf captures d'écran** jointes à la conversation. Quatre présentent différentes formes géométriques de la section de statistiques (« rayonnement », globe, segments verticaux, sablier) ; trois illustrent des variantes de couleurs jour/nuit, une illustre la grille de produits, une la modale de détail. Ces captures documentent l'intention créative ; les fichiers originaux **ne sont pas recopiés dans le site**.
+- **S-15 :** [Stripe France](https://stripe.com/fr), référence officielle indiquée par l'utilisateur. Le site tiers peut changer après la capture.
+- **S-16 :** [MDN Canvas API](https://developer.mozilla.org/en-US/docs/Web/API/Canvas_API) et [CanvasRenderingContext2D](https://developer.mozilla.org/en-US/docs/Web/API/CanvasRenderingContext2D), pour les lignes génératives.
+- **S-17 :** [MDN ResizeObserver](https://developer.mozilla.org/en-US/docs/Web/API/ResizeObserver), pour adapter le canevas au conteneur.
+- **S-18 :** [WAI-ARIA Dialog Modal](https://www.w3.org/WAI/ARIA/apg/patterns/dialog-modal/), pour focus, fermeture et structure de la modale.
+
+**Provenance :** chaque illustration HTML/CSS/Canvas a été créée pour Aether. Les contenus, statistiques, partenaires, simulations de paiement, logos et fonctionnalités propriétaires de Stripe n'ont pas été intégrés.
