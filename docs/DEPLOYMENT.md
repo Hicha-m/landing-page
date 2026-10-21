@@ -43,8 +43,12 @@ public/
 ├── assets/
 ├── data/projects.json
 └── pages/
-    └── studiospace/
+    ├── studiospace/
         ├── index.html         # StudioSpace standalone landing
+        ├── styles.css
+        └── script.js
+    └── aether/
+        ├── index.html
         ├── styles.css
         └── script.js
 ```
@@ -57,6 +61,7 @@ Project configuration, `.github/`, documentation, and local tools are intentiona
 | --- | --- |
 | Collection | `/` |
 | StudioSpace | `/pages/studiospace/` |
+| Aether | `/pages/aether/` |
 | Manifest | `/data/projects.json` |
 
 Cloudflare Pages serves `index.html` for directory URLs.
