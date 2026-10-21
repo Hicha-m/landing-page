@@ -1,37 +1,149 @@
 'use strict';
-const $$ = (selector, base=document) => [...base.querySelectorAll(selector)];
-const $ = selector => document.querySelector(selector);
-const reduceMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
-// Reveal sections as they enter the viewport.
-if('IntersectionObserver' in window && !reduceMotion){
- const revealObserver=new IntersectionObserver(entries=>entries.forEach(e=>{if(e.isIntersecting){e.target.classList.add('visible');revealObserver.unobserve(e.target)}}),{threshold:.10,rootMargin:'0px 0px -25px 0px'});
- $$('.reveal').forEach(el=>revealObserver.observe(el));
-}else{$$('.reveal').forEach(el=>el.classList.add('visible'))}
-// The fixed progress line and gentle depth effect.
-let ticking=false;
-function onScroll(){if(ticking)return;ticking=true;requestAnimationFrame(()=>{const max=document.documentElement.scrollHeight-window.innerHeight;$('.progress').style.width=(max?window.scrollY/max*100:0)+'%';if(!reduceMotion && window.innerWidth>790){const item=$('[data-parallax]');if(item&&window.scrollY<800){item.style.transform=`translate3d(0,${Math.min(70,window.scrollY*.07)}px,0)`}}ticking=false})}
-window.addEventListener('scroll',onScroll,{passive:true});onScroll();
-// Responsive mobile menu.
-const toggle=$('.menu-toggle');toggle.addEventListener('click',()=>{const open=$('.navlinks').classList.toggle('show');toggle.setAttribute('aria-expanded',String(open));toggle.setAttribute('aria-label',open?'Close menu':'Open menu')});$$('.navlinks a').forEach(a=>a.addEventListener('click',()=>{$('.navlinks').classList.remove('show');toggle.setAttribute('aria-expanded','false')}));
-// Horizontally draggable, keyboard-accessible sliders.
-$$('.card-track,.template-track').forEach(track=>{let pressed=false,origin=0,start=0,moved=false;
- track.addEventListener('pointerdown',e=>{if(e.pointerType==='mouse'&&e.button!==0)return;pressed=true;moved=false;origin=e.clientX;start=track.scrollLeft;track.classList.add('dragging');if(e.pointerType==='mouse')track.setPointerCapture(e.pointerId)});
- track.addEventListener('pointermove',e=>{if(!pressed)return;const delta=e.clientX-origin;if(Math.abs(delta)>6)moved=true;track.scrollLeft=start-delta});
- function end(){pressed=false;track.classList.remove('dragging')};track.addEventListener('pointerup',end);track.addEventListener('pointercancel',end);track.addEventListener('lostpointercapture',end);
- track.addEventListener('click',e=>{if(moved){e.preventDefault();e.stopPropagation();moved=false}},true);
- track.addEventListener('keydown',e=>{if(e.key==='ArrowRight'||e.key==='ArrowLeft'){e.preventDefault();track.scrollBy({left:(e.key==='ArrowRight'?1:-1)*330,behavior:reduceMotion?'instant':'smooth'})}});
- track.addEventListener('scroll',()=>{if(track.id==='template-track'){const first=track.querySelector('.template-card');const step=first?first.getBoundingClientRect().width+30:395;const index=Math.min(4,Math.max(1,Math.round(track.scrollLeft/step)+1));$('#template-index').textContent=String(index).padStart(2,'0')}},{passive:true});
+
+const projectGrid = document.querySelector('#project-grid');
+const emptyState = document.querySelector('#collection-empty');
+const searchInput = document.querySelector('#project-search');
+const filterButtons = [...document.querySelectorAll('[data-filter]')];
+const countAll = document.querySelector('#count-all');
+
+let projects = [{
+  id: 'studiospace',
+  title: 'StudioSpace',
+  number: '001',
+  type: 'WEBSITE EXPERIENCE',
+  category: 'websites',
+  summary: 'Immersive storefront, motion and editorial layouts.',
+  tags: ['websites', 'design', 'motion'],
+  image: './assets/preview.svg',
+  url: './pages/studiospace/'
+}];
+let activeFilter = 'all';
+let searchTerm = '';
+
+function element(tag, className, text) {
+  const node = document.createElement(tag);
+  if (className) node.className = className;
+  if (text !== undefined) node.textContent = text;
+  return node;
+}
+
+function projectCard(project) {
+  const link = element('a', 'project-card');
+  link.href = project.url;
+  link.setAttribute('aria-label', 'Explore ' + project.title);
+
+  const media = element('div', 'card-media');
+  const image = element('img');
+  image.src = project.image;
+  image.alt = project.title + ' website preview';
+  image.loading = 'lazy';
+  media.append(image, element('span', 'card-visit', 'View project ↗'));
+
+  const info = element('div', 'card-footer');
+  const details = element('div');
+  details.append(
+    element('span', 'project-tag', project.number + ' / ' + project.type),
+    element('h3', '', project.title),
+    element('p', '', project.summary)
+  );
+  info.append(details, element('span', 'card-arrow', '↗'));
+  link.append(media, info);
+  return link;
+}
+
+function renderProjects() {
+  const matching = projects.filter(project => {
+    const matchesFilter = activeFilter === 'all' || project.category === activeFilter;
+    const haystack = [project.title, project.summary, project.category, ...(project.tags || [])].join(' ').toLowerCase();
+    return matchesFilter && haystack.includes(searchTerm);
+  });
+  projectGrid.replaceChildren(...matching.map(projectCard));
+  emptyState.hidden = matching.length > 0;
+  countAll.textContent = String(projects.length).padStart(2, '0');
+}
+
+async function loadProjects() {
+  try {
+    const response = await fetch('./data/projects.json');
+    if (!response.ok) throw new Error('Could not load project index');
+    const data = await response.json();
+    if (!Array.isArray(data.projects)) throw new Error('Invalid catalog format');
+    const valid = data.projects.filter(item =>
+      item && typeof item.id === 'string' &&
+      typeof item.title === 'string' &&
+      typeof item.url === 'string' &&
+      typeof item.image === 'string' &&
+      typeof item.category === 'string'
+    );
+    if (valid.length) projects = valid;
+  } catch (error) {
+    console.info('Using embedded project fallback:', error.message);
+  }
+  renderProjects();
+}
+
+filterButtons.forEach(button => {
+  button.addEventListener('click', () => {
+    activeFilter = button.dataset.filter;
+    filterButtons.forEach(item => {
+      const selected = item === button;
+      item.classList.toggle('active', selected);
+      item.setAttribute('aria-pressed', String(selected));
+    });
+    renderProjects();
+  });
 });
-$$('button[data-slider]').forEach(btn=>btn.addEventListener('click',()=>{const track=document.getElementById(btn.dataset.slider),card=track.firstElementChild;track.scrollBy({left:Number(btn.dataset.dir)*(card.getBoundingClientRect().width+parseFloat(getComputedStyle(track).gap||0)),behavior:reduceMotion?'instant':'smooth'})}));
-// Count-up stats with accessibility-preserving original labels.
-if(!reduceMotion && 'IntersectionObserver' in window){let io=new IntersectionObserver(entries=>entries.forEach(entry=>{if(!entry.isIntersecting)return;const el=entry.target;io.unobserve(el);const target=+el.dataset.count,pre=el.dataset.prefix||'',suffix=el.dataset.suffix||'',started=performance.now();const step=now=>{const progress=Math.min(1,(now-started)/1400),eased=1-Math.pow(1-progress,4);el.textContent=pre+Math.round(target*eased)+suffix;if(progress<1)requestAnimationFrame(step)};requestAnimationFrame(step)}),{threshold:.5});$$('[data-count]').forEach(el=>io.observe(el))}
-// Demonstration-only domain input (never invents registrar availability).
-$('#domain-form').addEventListener('submit',e=>{e.preventDefault();const term=$('#domain-input').value.trim().toLowerCase().replace(/\s+/g,'').replace(/[^a-z0-9.-]/g,'');const result=$('#domain-result');if(term.length<2){result.textContent='Enter a name with at least two letters or numbers.';return}result.textContent=`“${term.includes('.')?term:term+'.com'}” — search preview only. Connect a registrar API for actual domain availability.`;});
-// Interactive design editor controls.
-$$('.tool-item').forEach(btn=>btn.addEventListener('click',()=>{$$('.tool-item').forEach(x=>x.classList.remove('active'));btn.classList.add('active');const region=$('.editor-canvas');const choice=btn.textContent.toLowerCase();region.style.background=choice.includes('colors')?'#d5c5e5':choice.includes('typography')?'#e5e2bd':choice.includes('layouts')?'#c9dfd3':choice.includes('animations')?'#d9c2b5':'#e8d9c8';}));
-// Modal video: keyboard Escape, background play/pause and focus control.
-const modal=$('#video-modal'),modalVideo=$('#modal-video'),videoButton=$('.video-play'),closeButton=$('.modal-close');let previousFocus=null;
-function closeVideo(){modal.classList.remove('open');modal.setAttribute('aria-hidden','true');modalVideo.pause();document.body.style.overflow='';previousFocus?.focus()}
-videoButton.addEventListener('click',()=>{previousFocus=document.activeElement;modal.classList.add('open');modal.setAttribute('aria-hidden','false');document.body.style.overflow='hidden';closeButton.focus();modalVideo.play().catch(()=>{})});closeButton.addEventListener('click',closeVideo);modal.addEventListener('click',e=>{if(e.target===modal)closeVideo()});document.addEventListener('keydown',e=>{if(e.key==='Escape'&&modal.classList.contains('open'))closeVideo()});
-// Do not play a background video if the visitor prefers reduced motion.
-if(reduceMotion){$$('video[autoplay]').forEach(v=>v.pause())}
+
+searchInput.addEventListener('input', event => {
+  searchTerm = event.target.value.trim().toLowerCase();
+  renderProjects();
+});
+
+document.addEventListener('keydown', event => {
+  const inputFocused = /input|textarea/i.test(document.activeElement?.tagName || '') ||
+    document.activeElement?.isContentEditable;
+  if (event.key === '/' && !inputFocused && !event.ctrlKey && !event.metaKey) {
+    event.preventDefault();
+    searchInput.focus();
+    document.querySelector('#collection').scrollIntoView({ behavior: 'smooth' });
+  }
+  if (event.key === 'Escape' && document.activeElement === searchInput) {
+    searchInput.value = '';
+    searchTerm = '';
+    searchInput.blur();
+    renderProjects();
+  }
+});
+
+const menuButton = document.querySelector('.menu-toggle');
+const mobileNav = document.querySelector('#mobile-nav');
+function closeMenu() {
+  menuButton.setAttribute('aria-expanded', 'false');
+  mobileNav.hidden = true;
+}
+menuButton.addEventListener('click', () => {
+  const expanded = menuButton.getAttribute('aria-expanded') === 'true';
+  menuButton.setAttribute('aria-expanded', String(!expanded));
+  mobileNav.hidden = expanded;
+});
+mobileNav.querySelectorAll('a').forEach(link => link.addEventListener('click', closeMenu));
+window.matchMedia('(min-width: 741px)').addEventListener('change', event => {
+  if (event.matches) closeMenu();
+});
+
+const revealElements = [...document.querySelectorAll('.reveal')];
+const prefersReducedMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+if ('IntersectionObserver' in window && !prefersReducedMotion) {
+  const observer = new IntersectionObserver(entries => {
+    entries.forEach(entry => {
+      if (entry.isIntersecting) {
+        entry.target.classList.add('visible');
+        observer.unobserve(entry.target);
+      }
+    });
+  }, { threshold: 0.08, rootMargin: '0px 0px -30px 0px' });
+  revealElements.forEach(item => observer.observe(item));
+} else {
+  revealElements.forEach(item => item.classList.add('visible'));
+}
+loadProjects();
