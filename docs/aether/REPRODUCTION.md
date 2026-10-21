@@ -110,3 +110,19 @@ Une nouvelle publication doit être vérifiée dans GitHub Actions puis dans l'h
 ## 10. Traçabilité
 
 Conserver les liens des commits de création du HTML, du CSS, du JS, du preview, du manifeste et de ce dossier. Pour chaque itération, noter la justification, les sources, un diff, les tests réellement effectués et les éventuelles limitations.
+
+## Variante V2 : hero blanc et ruban lumineux (mise à jour du 21/10/2026)
+
+La recette initiale ci-dessus décrit la **V1** et les sections conservées. Pour reproduire la **V2**, appliquer ces changements après les étapes 3–4 :
+
+1. Dans `index.html`, supprimer les éléments `.aurora-1`, `.aurora-2`, `.aurora-3` du bandeau supérieur : conserver un `.hero-bg` vide sur fond blanc.
+2. Remplacer le hero en deux colonnes / dashboard par `.hero.hero-refresh`, un bloc de texte `.hero-copy` et une illustration décorative `.hero-ribbon` contenant `<img src="./aurora-ribbon.svg" alt="">`.
+3. Dessiner `aurora-ribbon.svg` comme plusieurs formes vectorielles superposées, avec dégradés bleu, violet, rose, orange, effets de flou et transparence. Le fichier livré sert de **source originale reproductible**, sans dépendance aux assets de Stripe.
+4. Ajouter en fin de `styles.css` les surcharges « AETHER V2 » pour le header clair, la typographie, le hero, le responsive et `prefers-reduced-motion`.
+5. Conserver les sections sous le hero et le JavaScript existant (onglets de code, copie, galerie et mobile).
+6. Refaire `assets/aether-preview.svg` et conserver `data/projects.json` inchangé si son chemin d'aperçu est déjà correct.
+7. Valider localement sur écran large et étroit, vérifier le clic des CTA, puis pousser sur GitHub pour déployer.
+
+**Contrôle de provenance :** voir [SOURCES.md](SOURCES.md#nouvelle-référence-fournie-par-lutilisateur--v2). La capture source est un élément de comparaison visuelle, pas un élément embarqué dans le site.
+
+**Observation à reproduire :** le texte doit rester lisible même lorsque le ruban le recouvre partiellement visuellement ; le ruban a `pointer-events:none` et les boutons restent actionnables. Les animations sont arrêtées lorsque l'utilisateur demande une réduction du mouvement.
