@@ -1,49 +1,51 @@
 <div align="center">
 
-# ✳ StudioSpace
+# ✳ FORMA
 
-### Make it real.
+**The independent landing-page collection.**
 
-An immersive, responsive landing-page concept featuring motion, interactive galleries and an editorial visual language — built with vanilla HTML, CSS and JavaScript.
+A growing archive of immersive web experiences — each crafted with its own design language, interactions, and visual story.
 
-[![CI & Deploy](https://github.com/Hicha-m/landing-page/actions/workflows/cloudflare-pages.yml/badge.svg?branch=main)](https://github.com/Hicha-m/landing-page/actions/workflows/cloudflare-pages.yml)
+[![CI / Cloudflare Pages](https://github.com/Hicha-m/landing-page/actions/workflows/cloudflare-pages.yml/badge.svg?branch=main)](https://github.com/Hicha-m/landing-page/actions/workflows/cloudflare-pages.yml)
+[![License: MIT](https://img.shields.io/badge/License-MIT-a6a0f6.svg)](LICENSE)
+[![No framework](https://img.shields.io/badge/Framework-None-222230)](#stack)
 [![GitHub last commit](https://img.shields.io/github/last-commit/Hicha-m/landing-page?logo=github)](https://github.com/Hicha-m/landing-page/commits/main)
-[![GitHub issues](https://img.shields.io/github/issues/Hicha-m/landing-page?logo=github)](https://github.com/Hicha-m/landing-page/issues)
-[![License: MIT](https://img.shields.io/badge/license-MIT-6f5a86.svg)](./LICENSE)
-[![HTML](https://img.shields.io/badge/HTML5-E34F26?logo=html5&logoColor=white)](./index.html)
-[![CSS](https://img.shields.io/badge/CSS3-1572B6?logo=css&logoColor=white)](./styles.css)
-[![JavaScript](https://img.shields.io/badge/JavaScript-F7DF1E?logo=javascript&logoColor=black)](./script.js)
+[![Open issues](https://img.shields.io/github/issues/Hicha-m/landing-page)](https://github.com/Hicha-m/landing-page/issues)
 
-[**Live site ↗**](https://studiospace-landing.pages.dev) · [**Figma design ↗**](https://www.figma.com/design/5UBzjTrLWHkDQNiS8xXziH) · [**Report a bug**](https://github.com/Hicha-m/landing-page/issues/new)
+[**Explore the collection ↗**](https://studiospace-landing.pages.dev/) · [**Browse the source ↗**](https://github.com/Hicha-m/landing-page) · [**Contribute ↗**](CONTRIBUTING.md)
 
 </div>
 
-> [!IMPORTANT]
-> **Deployment status:** The Cloudflare Pages project is configured, but the live URL requires a successful first deployment and a GitHub Actions Cloudflare token. The deployment badge above reflects GitHub Actions, not an invented success state.
+![StudioSpace, the first landing page in the FORMA collection](assets/preview.svg)
 
-![StudioSpace preview illustration](./assets/preview.svg)
+> [!NOTE]
+> The collection is intentionally curated. Only completed experiences appear in the catalog. **The Cloudflare URL requires a successful first deployment and the `CLOUDFLARE_API_TOKEN` GitHub Actions secret.** The badge above reflects the actual workflow status.
 
-## ✨ Features
+## What is FORMA?
 
-| Experience | Implementation |
-| --- | --- |
-| Immersive hero | Muted looping sample video with modal preview |
-| Motion design | Scroll reveals, parallax, progress indicator and counters |
-| Galleries | Horizontal draggable panels, carousel arrows and template previews |
-| Interactive UI | Expandable FAQ, mobile menu, mock design studio and sample domain search |
-| Responsive layouts | Desktop, tablet and mobile breakpoints |
-| Lightweight stack | Plain HTML, CSS and JavaScript; no build tooling or backend |
-| Delivery | GitHub Actions validation → Cloudflare Pages through Wrangler |
+FORMA is the **homepage that brings together independent landing-page experiments**. Inspired by Linear's editorial precision, subtle ambient light, polished product previews, and restrained motion, it offers a cohesive gallery rather than a single marketing page.
 
-The domain search, editor and business figures are **demonstrations**, not actual services or verified StudioSpace statistics. The illustrative video is loaded from an external CC0 sample source.
+Each landing page is an isolated static site that can be opened and developed independently.
 
-## 🧭 Sections
+## Current collection
 
-Hero · Community · Solutions · AI design concept · Templates · Domains · Commerce · Inspiration · How it works · FAQ · CTA · Footer.
+| # | Project | Description | Preview |
+| --- | --- | --- | --- |
+| 001 | **StudioSpace** | Immersive website-builder concept with video, animated content, templates, sliders and galleries | [Open StudioSpace](https://studiospace-landing.pages.dev/pages/studiospace/) |
 
-## 🚀 Quick start
+More experiences will be added as they are created. There are no fabricated or empty project listings.
 
-No installation or package manager required.
+## Features
+
+- **Linear-inspired visual direction** — deep near-black canvas, violet light, large editorial typography and low-contrast borders.
+- **Responsive gallery** — immersive featured window, hover states, and polished project cards.
+- **Project discovery** — live search (shortcut `/`), category filters and a useful empty state.
+- **Motion** — staggered scroll reveals, orbit animation and respect for reduced-motion preferences.
+- **Scalable catalog** — a single JSON manifest registers new landing pages automatically.
+- **Accessibility** — semantic headings, keyboard navigation, labeled controls, focus states and mobile navigation.
+- **No build dependencies** — plain HTML/CSS/JS, served statically on Cloudflare Pages.
+
+## Getting started
 
 ```bash
 git clone https://github.com/Hicha-m/landing-page.git
@@ -51,58 +53,81 @@ cd landing-page
 python3 -m http.server 8080
 ```
 
-Open **http://localhost:8080**. The site uses external Google Fonts and an externally hosted sample video, so these assets require an internet connection.
+Browse:
 
-### Validate locally
+- **Collection:** http://localhost:8080/
+- **StudioSpace:** http://localhost:8080/pages/studiospace/
+
+The catalog fetches its manifest, so **use a local HTTP server**, rather than opening `index.html` with `file://`.
+
+## Stack
+
+| Layer | Technology |
+| --- | --- |
+| Structure | Semantic HTML5 |
+| Styling & interactions | CSS3 + vanilla JavaScript |
+| Project index | `data/projects.json` |
+| Hosting | Cloudflare Pages |
+| Validation & deployment | GitHub Actions + Wrangler |
+
+No React, Node runtime, database, or paid third-party API is required for site visitors. Fonts and sample video used in StudioSpace may load externally.
+
+## File structure
+
+```text
+landing-page/
+├── index.html                    # FORMA catalog homepage
+├── styles.css                    # Catalog styling
+├── script.js                     # Catalog discovery + interactions
+├── assets/                       # Shared previews + favicon
+├── data/
+│   ├── projects.json             # Source of truth for listings
+│   └── README.md                 # How to add a landing page
+├── pages/
+│   └── studiospace/
+│       ├── index.html            # Complete standalone page
+│       ├── styles.css
+│       └── script.js
+├── scripts/
+│   ├── validate_site.py          # Validate every website
+│   └── build_site.py             # Clean static publish folder
+├── docs/DEPLOYMENT.md
+└── .github/workflows/
+    └── cloudflare-pages.yml
+```
+
+## Add another landing page
+
+1. Create `pages/<your-slug>/index.html` and its required assets.
+2. Add its metadata and preview to **[`data/projects.json`](data/projects.json)**.
+3. Run validation. Push through a pull request.
+4. Merge to `main` to trigger the production deployment (when the Cloudflare API secret is configured).
+
+See [the step-by-step project authoring guide](data/README.md).
+
+## Validation
 
 ```bash
 python3 scripts/validate_site.py
 node --check script.js
+node --check pages/studiospace/script.js
+python3 scripts/build_site.py
 ```
 
-## 📁 Project structure
+The deployment workflow publishes the clean `public/` output and does not expose `.github/`, project documentation, or source tooling.
 
-```text
-landing-page/
-├── .github/
-│   ├── ISSUE_TEMPLATE/
-│   └── workflows/
-│       └── cloudflare-pages.yml
-├── assets/
-│   └── preview.svg
-├── docs/
-│   └── DEPLOYMENT.md
-├── scripts/
-│   └── validate_site.py
-├── index.html
-├── styles.css
-├── script.js
-├── CONTRIBUTING.md
-├── SECURITY.md
-├── LICENSE
-└── README.md
-```
+## Live deployment
 
-## ☁️ Continuous deployment
+The existing Cloudflare Pages project is **`studiospace-landing`**. GitHub Actions deploys on push to `main` after validation, with `CLOUDFLARE_API_TOKEN` stored as a repository secret.
 
-Every pull request to `main` runs validation. Every push to `main` runs the same checks and, once authenticated, publishes to the existing Cloudflare Pages project `studiospace-landing`.
+Read [Cloudflare deployment setup](docs/DEPLOYMENT.md). The live URL must not be considered confirmed until Cloudflare reports a successful deployment.
 
-A repository secret named **`CLOUDFLARE_API_TOKEN`** is required. Never commit API tokens. See **[deployment instructions](./docs/DEPLOYMENT.md)** for the minimal-permission setup, expected behavior and troubleshooting.
+## Contributing & license
 
-## 🎨 Design
+Contributions and design experiments are welcome. Read [CONTRIBUTING.md](CONTRIBUTING.md) and [SECURITY.md](SECURITY.md). Source code is published under the [MIT License](LICENSE). Third-party fonts and media have their own usage terms.
 
-The [Figma source](https://www.figma.com/design/5UBzjTrLWHkDQNiS8xXziH) contains an editable landing-page layout. StudioSpace is an **independent concept study** inspired by contemporary creative website-builder design patterns. It is **not affiliated with, endorsed by, or a product of Squarespace**.
-
-## 🤝 Contributing
-
-Contributions are welcome: start with an issue, follow [CONTRIBUTING.md](./CONTRIBUTING.md), and propose changes through a pull request.
-
-## 📜 License
-
-Distributed under the [MIT License](./LICENSE). Third-party media and fonts retain their own terms.
+FORMA is an independent showcase inspired by general contemporary web design patterns; it is not associated with Linear or Squarespace.
 
 ---
 
-<div align="center">
-<sub>Crafted for exploration. Built with web standards.</sub>
-</div>
+<div align="center"><sub>Designed for the curious. Built to keep evolving.</sub></div>
