@@ -13,9 +13,9 @@ The project already exists in Cloudflare Pages as a **Direct Upload** project. W
 
 Create an API token in Cloudflare under **My Profile → API Tokens** with **Account → Cloudflare Pages → Edit**, restricted to your Cloudflare account.
 
-In this GitHub repository, go to **Settings → Secrets and variables → Actions** and add **`CLOUDFLARE_API_TOKEN`** with the token value. Do not commit, paste, or log the token.
+In this GitHub repository, go to **Settings → Secrets and variables → Actions** and add both **`CLOUDFLARE_API_TOKEN`** and **`CLOUDFLARE_ACCOUNT_ID`**. The latter is your account ID; never commit the API token. Do not commit, paste, or log the token.
 
-The GitHub workflow specifies the account ID directly. It is an identifier, not a secret.
+The GitHub workflow reads the account ID from `secrets.CLOUDFLARE_ACCOUNT_ID` and the token from `secrets.CLOUDFLARE_API_TOKEN`. The account ID itself is not sensitive, but this setup keeps configuration in one place.
 
 ## Continuous deployment
 
@@ -26,6 +26,8 @@ The workflow at `.github/workflows/cloudflare-pages.yml` does the following:
 3. Checks every project's JavaScript syntax with `node --check`.
 4. Runs `python3 scripts/build_site.py` to assemble the deployable site.
 5. On pushes to `main`, deploys `public/` with Wrangler to Cloudflare Pages.
+
+For per-page inspiration records and complete rebuilding instructions, see [documentation index](README.md).
 
 Pull requests run validation **without deploying to production**. A manual workflow run on `main` can also initiate a production deployment.
 
