@@ -47,7 +47,7 @@ jobs:
           mkdir -p dist
           cp index.html styles.css script.js dist/
       - name: Deploy to Cloudflare Pages
-        uses: cloudflare/wrangler-action@v3
+        uses: cloudflare/wrangler-action@v4
         with:
           apiToken: ${{ secrets.CLOUDFLARE_API_TOKEN }}
           accountId: 0e52a0a9c70bfb137e85da4cdd8ac280
