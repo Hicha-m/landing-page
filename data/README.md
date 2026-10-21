@@ -34,7 +34,19 @@ Edit `data/projects.json` and add a unique project:
 
 The URL and image must exist. Use categories `websites` or `concepts` to match the homepage filters. The catalog reads JSON at runtime, so no JavaScript edits are needed for new projects.
 
-## 3. Validate and deploy
+## 3. Documenter les inspirations et la reproductibilité
+
+Avant la première publication, créer **trois fichiers dans `docs/<slug>/`** :
+
+- `README.md` : contexte, objectifs, fichiers, limitations.
+- `SOURCES.md` : inspiration, URL, date, nature d'utilisation, droits.
+- `REPRODUCTION.md` : procédure pas à pas, interactions, validation.
+
+Utiliser [le modèle obligatoire](../docs/TEMPLATE-LANDING-PAGE.md), consulter l'[index des dossiers](../docs/README.md) et noter les décisions majeures dans le [registre ADR](../docs/DECISIONS.md).
+
+Ne pas présenter les comportements fictifs comme des services fonctionnels ni une démarche reconstituée comme une chronologie prouvée.
+
+## 4. Validate and deploy
 
 ```bash
 python3 scripts/validate_site.py
