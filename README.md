@@ -29,6 +29,7 @@ A growing archive of immersive web experiences — each crafted with its own des
 | --- | --- | --- | --- |
 | **FORMA** — catalogue | [Dossier](docs/forma/README.md) | [Sources](docs/forma/SOURCES.md) | [Mode opératoire](docs/forma/REPRODUCTION.md) |
 | **StudioSpace** | [Dossier](docs/studiospace/README.md) | [Sources](docs/studiospace/SOURCES.md) | [Mode opératoire](docs/studiospace/REPRODUCTION.md) |
+| **Aether** — inspiration Stripe | [Dossier](docs/aether/README.md) | [Sources](docs/aether/SOURCES.md) | [Mode opératoire](docs/aether/REPRODUCTION.md) |
 
 Pour chaque nouvelle page, utiliser le **[modèle documentaire](docs/TEMPLATE-LANDING-PAGE.md)** et conserver ses décisions dans le **[registre ADR](docs/DECISIONS.md)**.
 
@@ -45,6 +46,7 @@ Each landing page is an isolated static site that can be opened and developed in
 | # | Project | Description | Preview |
 | --- | --- | --- | --- |
 | 001 | **StudioSpace** | Immersive website-builder concept with video, animated content, templates, sliders and galleries | [Open StudioSpace](https://studiospace-landing.pages.dev/pages/studiospace/) |
+| 002 | **Aether** | Stripe-inspired fintech concept, aurora gradients, code tabs and animated UI | [Open Aether](https://studiospace-landing.pages.dev/pages/aether/) |
 
 More experiences will be added as they are created. There are no fabricated or empty project listings.
 
@@ -125,6 +127,7 @@ See [the step-by-step project authoring guide](data/README.md) and [documentatio
 python3 scripts/validate_site.py
 node --check script.js
 node --check pages/studiospace/script.js
+node --check pages/aether/script.js
 python3 scripts/build_site.py
 ```
 
