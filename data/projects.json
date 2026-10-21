@@ -33,6 +33,23 @@
       ],
       "image": "./assets/aether-preview.svg",
       "url": "./pages/aether/"
+    },
+    {
+      "id": "swell",
+      "title": "Swell",
+      "number": "003",
+      "type": "EMPLOYEE BENEFITS CONCEPT",
+      "category": "websites",
+      "summary": "Playful workplace benefits landing page, with editable Figma design and colorful card illustrations.",
+      "tags": [
+        "websites",
+        "swile-inspired",
+        "benefits",
+        "pastel",
+        "figma"
+      ],
+      "image": "./assets/swell-preview.svg",
+      "url": "./pages/swell/"
     }
   ]
 }
