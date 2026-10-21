@@ -13,6 +13,8 @@ Chaque décision est datée et reliée à son champ d'application. **Statut « r
 | ADR-007 | Distribution | Vérifiée dans la CI | Build Python de `public/`, Direct Upload avec Wrangler | Ne pas exposer les fichiers internes du dépôt | Dépend des secrets GitHub Actions |
 | ADR-008 | Figma | Reconstituée | Maquette StudioSpace éditable + implémentation web indépendante | Séparer exploration graphique et interactions réelles | Le prototype Figma ne reproduit pas toutes les animations web |
 
+| ADR-009 | Aether, inspiration Stripe | Vérifiée dans le code | Concept statique « Aether » avec gradient animé, composants fictifs et exemples d'API non exécutables | Réaliser les patterns demandés sans copier la marque ni simuler de vrai paiement | Les données ne représentent aucun service réel ; voir [documentation](aether/README.md) |
+
 ## Format d'une nouvelle décision
 
 ```md
