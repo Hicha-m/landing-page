@@ -1,0 +1,21 @@
+{
+  "version": 1,
+  "projects": [
+    {
+      "id": "studiospace",
+      "title": "StudioSpace",
+      "number": "001",
+      "type": "WEBSITE EXPERIENCE",
+      "category": "websites",
+      "summary": "Immersive storefront, motion and editorial layouts.",
+      "tags": [
+        "websites",
+        "design",
+        "motion",
+        "editorial"
+      ],
+      "image": "./assets/preview.svg",
+      "url": "./pages/studiospace/"
+    }
+  ]
+}
