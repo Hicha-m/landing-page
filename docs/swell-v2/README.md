@@ -121,3 +121,12 @@ La nouvelle réponse directe de `inspect-page` sur Swile contient les quatre ani
 - Les tests visuels complets et le mobile demeurent à compléter, notamment le comportement sticky sous 520 px.
 
 Les captures de référence servent à guider une interprétation originale, pas à importer ou publier les médias Swile.
+
+
+### Correctif de reconstruction — troisième passage (25 octobre 2026)
+
+**Seul `pages/swell-v2/` a changé.** À partir des valeurs documentées par le MCP, les trois états Smartcard sont maintenant des calques HTML/CSS originaux, avec interpolation pilotée par scroll : premier état 1→0 de 0 à 25 %, deuxième 0→1 de 25 à 50 %, palier à 75 % puis extinction à 90 %, troisième état en relais entre 75 et 90 %. L'effet de texte utilise 4 secondes, `linear`, décalage horizontal 0→992 px. Le mouvement désactivé affiche une carte fixe.
+
+Un premier contrôle navigateur a fait apparaître un empilement incorrect des cartes sur un viewport de vérification ; la solution a été de calculer explicitement les opacités en JavaScript puis de les injecter comme variables CSS numériques. Les couches ont également été positionnées explicitement et le conteneur est découpé sur les petits écrans.
+
+Une vérification `capture-state` a ensuite confirmé un viewport **390 × 844** avec `prefers-reduced-motion=reduce` au scrollY 2000. La première tentative de capture mobile avait en revanche conservé **1440 × 900** malgré des paramètres demandés ; il a fallu invoquer explicitement `viewport` avant `capture-state`. **La vérification mobile a porté sur le viewport déclaré, pas sur un audit visuel exhaustif.** Le comparateur cross-site reste bloqué par les inventaires de polices différents ; aucune mesure chiffrée de fidélité visuelle n'est disponible.
