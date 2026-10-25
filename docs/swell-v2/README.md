@@ -62,3 +62,33 @@ HTML/CSS/JS sans framework, responsive desktop/mobile, `prefers-reduced-motion`,
 **Attention :** la réussite de la capture et du déploiement n'établit pas à elle seule une parfaite fidélité visuelle. Un contrôle côte à côte sur navigateurs desktop et mobile reste nécessaire.
 
 Voir [les sources](SOURCES.md) et [la procédure de reproduction](REPRODUCTION.md).
+
+
+## Motion pass — 25 octobre 2026, nouveau MCP Local Page Capture Web
+
+**La même version `pages/swell-v2/` a été modifiée.** Aucun projet V3, nouveau répertoire ou nouvel identifiant FORMA n'a été créé.
+
+### Captures effectivement réalisées
+
+- Ouverture navigateur de `https://www.swile.co/` : HTTP **200**, viewport **1440 × 900**, animations autorisées, mouvement normal.
+- `inspect-page` : **200 éléments** (troncature signalée), **4 animations** détectées (pas de troncature), **75 ressources**.
+- Consentement Axeptio : bouton **« Continuer sans accepter »** actionné.
+- `capture-sequence` : séquence de défilement progressif (420, 550, 650, 760, 840 px) avec pauses intermédiaires ; **12 états enregistrés** dans un ZIP, identifiant `493f4330-0ccd-4bc9-9e2b-690cdc897ea5.zip`.
+- Page Swell V2 en production ouverte également en HTTP **200**, puis `capture-state` produite à **1440 × 900**.
+- Inspecteur source `2633c5ea-60e3-449b-8094-ada2542b67f6.json` : **fichier produit sur le serveur**, mais son téléchargement local a échoué par restriction réseau/DNS. Les durées exactes et courbes d'easing des quatre animations n'ont donc **pas été lues**.
+
+### Changements dans Swell V2
+
+Dans `script.js` : mise à jour des paramètres de mouvement en fonction du scroll via `requestAnimationFrame`, gestion du redimensionnement et de la préférence `prefers-reduced-motion`, apparitions au défilement via `IntersectionObserver`.
+
+Dans `styles.css` : interpolation de rotation et déplacement pour la carte principale, la carte technologique, la carte « tout-en-un » et le téléphone ; mouvements décoratifs légers sur les orbites, le halo et les étoiles ; comportement statique si les animations sont désactivées dans les préférences du système.
+
+**Précision** : ces trajectoires sont des interprétations originales fondées sur l'observation des états et la structure générale ; elles ne représentent pas une extraction des paramètres précis des animations propriétaires de Swile.
+
+### Comparaison visuelle : encore non validée
+
+`compare-captures` a bien été essayé avec les captures de référence et de Swell V2. Il a rejeté les comparaisons avec l'erreur **« Conditions différentes : navigateur, viewport, scroll, polices, consentement et animations doivent correspondre »**. Même après harmonisation de l'étiquette du consentement, la comparaison n'a pas été acceptée. Aucun score de ressemblance ne peut être annoncé.
+
+**À corriger dans le MCP** : fournir un diagnostic champ par champ des préconditions incompatibles, puis permettre une comparaison de deux sites différents avec des polices distinctes, tout en gardant une alerte explicite sur cette différence. Il faut idéalement aussi pouvoir lire ou résumer les résultats de `inspect-page` et `capture-sequence` directement dans la réponse de l'outil pour éviter de dépendre du téléchargement ZIP/JSON signé.
+
+Une future validation devra tester les animations en navigateur à différents scrollY, sur desktop/mobile et avec `prefers-reduced-motion`.
