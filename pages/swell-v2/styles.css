@@ -92,3 +92,21 @@
  .smartcard-timeline .tech-stage-two,.smartcard-timeline .tech-stage-three{opacity:0!important}
  .smartcard-timeline .tech-stage{will-change:auto}
 }
+
+
+/* Smartcard cross-browser correction: JS supplies numeric alpha values. */
+.smartcard-timeline .tech-stage{
+  position:absolute!important;
+  inset:auto!important;
+  left:50%!important;top:50%!important;
+  margin-left:-120px!important;margin-top:-175px!important;
+  pointer-events:none;
+}
+.smartcard-timeline .tech-stage-one{opacity:var(--stage-one-opacity,1)}
+.smartcard-timeline .tech-stage-two{opacity:var(--stage-two-opacity,0)}
+.smartcard-timeline .tech-stage-three{opacity:var(--stage-three-opacity,0)}
+@media(max-width:790px){.technology-visual{overflow:hidden}}
+@media(prefers-reduced-motion:reduce){
+ .smartcard-timeline .tech-stage-one{opacity:1!important}
+ .smartcard-timeline .tech-stage-two,.smartcard-timeline .tech-stage-three{opacity:0!important}
+}
