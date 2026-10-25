@@ -92,3 +92,32 @@ Dans `styles.css` : interpolation de rotation et déplacement pour la carte prin
 **À corriger dans le MCP** : fournir un diagnostic champ par champ des préconditions incompatibles, puis permettre une comparaison de deux sites différents avec des polices distinctes, tout en gardant une alerte explicite sur cette différence. Il faut idéalement aussi pouvoir lire ou résumer les résultats de `inspect-page` et `capture-sequence` directement dans la réponse de l'outil pour éviter de dépendre du téléchargement ZIP/JSON signé.
 
 Une future validation devra tester les animations en navigateur à différents scrollY, sur desktop/mobile et avec `prefers-reduced-motion`.
+
+
+## Reconstruction des animations mesurées — 25 octobre 2026
+
+Mise à jour **sur le même chemin `pages/swell-v2/`**, sans création d'une troisième version ni duplication du manifeste.
+
+### Données effectivement relevées avec Local Page Capture Web
+
+La nouvelle réponse directe de `inspect-page` sur Swile contient les quatre animations, dont :
+- **`gradientAnimate`** : animation CSS de `backgroundPositionX`, de **0 px à 992 px**, sur **4 000 ms**, easing **linear**, répétée indéfiniment.
+- **Trois états pilotés par `ScrollTimeline`**, propriété `opacity` : premier état de **1 à 0 entre 0 et 25 %** ; deuxième état de **0 à 1 de 25 à 50 %**, stable jusqu'à 75 %, puis à **0 vers 90 %**. Le troisième état prend le relais ensuite ; sa forme et son texte sont une création Swell.
+
+### Implémentation de V2
+
+- Le sous-titre « malin » de la section `technology` possède une animation CSS dédiée de **4 s et 992 px** ; l'habillage dégradé diffère volontairement de Swile.
+- Les **trois calques de carte Swell** sont disposés l'un sur l'autre dans `.smartcard-timeline` ; `--smart-progress` détermine leur visibilité selon les points clés observés.
+- Le calcul de progression est rattaché à la traversée de la section, et non à une durée fixe. Les autres cartes du site gardent leurs animations de parallaxe créatives.
+- Les préférences `prefers-reduced-motion` conservent une carte visible et désactivent l'animation du dégradé.
+
+**Limite :** la progression est émulée avec `requestAnimationFrame` et une propriété personnalisée CSS plutôt qu'avec la même implémentation `ScrollTimeline` native que Swile. Les mouvements spatiaux et contenus graphiques ne proviennent pas des sources propriétaires de Swile.
+
+### Vérifications et comparaison
+
+- Après publication du CSS et JS, la page a répondu **HTTP 200** à 1440 × 900 dans le navigateur Local Page Capture Web.
+- `inspect-page` a détecté **5 animations d'ambiance** dans le hero (2 orbites, 1 halo, 2 étoiles). L'animation du dégradé se trouve plus bas et **n'est pas attestée** par cet inspecteur tant qu'on n'a pas déclenché sa section.
+- La précédente tentative de `compare-captures` a identifié une incompatibilité stricte des polices entre Swile et Swell. Le MCP ne fournit pas actuellement dans sa signature de paramètre un mode explicite permettant de tolérer cette différence. **Aucun score de similitude n'est revendiqué.**
+- Les tests visuels complets et le mobile demeurent à compléter, notamment le comportement sticky sous 520 px.
+
+Les captures de référence servent à guider une interprétation originale, pas à importer ou publier les médias Swile.
