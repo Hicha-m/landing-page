@@ -50,6 +50,23 @@
       ],
       "image": "./assets/swell-preview.svg",
       "url": "./pages/swell/"
+    },
+    {
+      "id": "swell-v2",
+      "title": "Swell V2",
+      "number": "004",
+      "type": "CAPTURE-LED BENEFITS EXPERIENCE",
+      "category": "websites",
+      "summary": "A second workplace-benefits landing page reconstructed after a real desktop/mobile browser capture of Swile.",
+      "tags": [
+        "websites",
+        "swile-inspired",
+        "capture-led",
+        "responsive",
+        "v2"
+      ],
+      "image": "./assets/swell-v2-preview.svg",
+      "url": "./pages/swell-v2/"
     }
   ]
 }
