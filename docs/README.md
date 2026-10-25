@@ -4,7 +4,7 @@ Ce répertoire documente **comment les pages ont été imaginées, construites, 
 
 > **Attention à la provenance :** les premières versions ont été construites avant l'adoption de ce protocole documentaire. Les guides FORMA et StudioSpace constituent une **reconstitution rétrospective fondée sur les fichiers, les échanges de conception disponibles et les sources identifiées**. Ils ne prétendent pas être un journal exhaustif des commandes, prompts, captures ou essais réellement effectués à l'époque. Les étapes de reproduction sont des **instructions reproductibles** et non des preuves que chaque action a historiquement été exécutée.
 
-## Sommaire
+- **Swell V2 — capture réelle Page Capture Web** : [rapport](swell-v2/README.md), [sources](swell-v2/SOURCES.md), [reproduction](swell-v2/REPRODUCTION.md). La version V1 reste disponible.\n\n## Sommaire
 
 | Périmètre | Dossier | Inspirations | Recette | Contrôles |
 | --- | --- | --- | --- | --- |
