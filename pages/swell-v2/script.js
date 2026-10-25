@@ -1,0 +1,10 @@
+"use strict";
+const $=s=>document.querySelector(s),$$=s=>Array.from(document.querySelectorAll(s));
+const menu=$(".menu-toggle"),panel=$("#main-menu");
+menu.addEventListener("click",()=>{const open=panel.classList.toggle("open");menu.setAttribute("aria-expanded",String(open));menu.setAttribute("aria-label",open?"Fermer le menu":"Ouvrir le menu")});
+$$(".nav-links a").forEach(link=>link.addEventListener("click",()=>{panel.classList.remove("open");menu.setAttribute("aria-expanded","false")}));
+document.addEventListener("keydown",e=>{if(e.key==="Escape"&&panel.classList.contains("open")){panel.classList.remove("open");menu.setAttribute("aria-expanded","false");menu.focus()}});
+const benefits={food:["Titres-resto","Une maquette de solution pour simplifier le déjeuner au quotidien."],gifts:["Cadeaux","Des occasions à célébrer, réunies dans une expérience créative."],travel:["Mobilité","Une interface imaginaire pour accompagner tous les trajets."],culture:["Culture","Une place pour la musique, les sorties et les découvertes."]};
+$$("[data-benefit]").forEach(button=>button.addEventListener("click",()=>{const entry=benefits[button.dataset.benefit];$("#benefit-detail-title").textContent=entry[0];$("#benefit-detail-desc").textContent=entry[1];$$("[data-benefit]").forEach(el=>el.setAttribute("aria-pressed",String(el===button)))}));
+const track=$("#testimonial-track");$$("[data-slide]").forEach(button=>button.addEventListener("click",()=>{const card=track.querySelector("article");track.scrollBy({left:Number(button.dataset.slide)*(card.getBoundingClientRect().width+17),behavior:matchMedia("(prefers-reduced-motion: reduce)").matches?"instant":"smooth"})}));
+track.addEventListener("keydown",e=>{if(["ArrowLeft","ArrowRight"].includes(e.key)){e.preventDefault();track.scrollBy({left:e.key==="ArrowRight"?380:-380,behavior:"smooth"})}});
