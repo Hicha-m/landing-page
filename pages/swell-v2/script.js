@@ -30,6 +30,14 @@ function updateMotion(){
     const trackLength=Math.max(1,smartRect.height-vh);
     const progress=clamp(-smartRect.top/trackLength,0,1);
     smartSection.style.setProperty("--smart-progress",progress.toFixed(4));
+    // Explicit numeric opacity values avoid cross-browser calc() multiplication
+    // differences and keep the three illustrated states mutually exclusive.
+    const fade1=clamp(1-progress*4,0,1);
+    const fade2=clamp(Math.min((progress-.25)*4,(.9-progress)/.15),0,1);
+    const fade3=clamp((progress-.75)/.15,0,1);
+    smartSection.style.setProperty("--stage-one-opacity",fade1.toFixed(4));
+    smartSection.style.setProperty("--stage-two-opacity",fade2.toFixed(4));
+    smartSection.style.setProperty("--stage-three-opacity",fade3.toFixed(4));
   }
   for(const item of motionTargets){
     const rect=item.anchor.getBoundingClientRect();
