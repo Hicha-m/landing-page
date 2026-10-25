@@ -21,7 +21,7 @@ A growing archive of immersive web experiences — each crafted with its own des
 > [!NOTE]
 > The collection is intentionally curated. Only completed experiences appear in the catalog. **Deployment is managed by GitHub Actions using the configured Cloudflare secrets; check the live workflow status before assuming a new commit has shipped.** The badge above reflects the actual workflow status.
 
-## 📚 Documentation et reproductibilité
+**Nouveau : [Swell V2](https://studiospace-landing.pages.dev/pages/swell-v2/)** — quatrième exemple FORMA, créé après une capture réelle desktop/mobile de Swile avec Page Capture Web. [Rapport et sources](docs/swell-v2/README.md). La version [Swell V1](https://studiospace-landing.pages.dev/pages/swell/) reste accessible.\n\n## 📚 Documentation et reproductibilité
 
 **[Guide complet de traçabilité](docs/README.md)** — inspirations, sources, décisions, modes opératoires et limites vérifiables.
 
