@@ -31,3 +31,64 @@
  .can-reveal,.can-reveal:not(.is-in-view){opacity:1!important;transform:none!important;filter:none!important}
  .hero-orbit,.halo,.card-spark{animation:none!important}
 }
+
+
+/* Swell V2 / measured-motion revision, 2026-10-25.
+   Swile reference exposed one 4000ms linear gradient cycle of 992px,
+   plus three opacity states driven by ScrollTimeline. The geometry
+   below is original Swell artwork; only timeline behavior is adapted. */
+.technology{--smart-progress:0;min-height:165vh;position:relative}
+.technology-grid{position:sticky;top:75px;height:calc(100vh - 75px);min-height:590px}
+.technology-copy h2 em{
+  color:transparent;
+  background:linear-gradient(90deg,#ff4bb1,#b66bf0,#fb71c5,#ff4bb1);
+  background-size:992px 100%;
+  background-position:0 0;
+  background-clip:text;-webkit-background-clip:text;
+  animation:swellGradientTravel 4000ms linear infinite;
+}
+@keyframes swellGradientTravel{from{background-position-x:0px}to{background-position-x:992px}}
+.technology-visual{isolation:isolate}
+.smartcard-timeline{position:absolute;inset:0;display:grid;place-items:center;pointer-events:none}
+.smartcard-timeline .tech-stage{
+  position:absolute;
+  left:50%;top:50%;margin-left:-120px;margin-top:-175px;
+  transition:none;will-change:opacity,transform;
+}
+.smartcard-timeline .tech-stage-one{
+  opacity:clamp(0,calc(1 - var(--smart-progress)*4),1);
+  transform:translate3d(0,calc(var(--smart-progress)*-25px),0) rotate(15deg)
+}
+.smartcard-timeline .tech-stage-two{
+  opacity:clamp(0,min(calc((var(--smart-progress) - .25)*4),calc((.9 - var(--smart-progress))*6.6667)),1);
+  background:linear-gradient(145deg,#a17ee9,#e5a7fa 60%,#ec69c8);
+  color:#22132d;
+  transform:translate3d(0,calc((.5 - var(--smart-progress))*28px),0) rotate(calc(-10deg + var(--smart-progress)*12deg))
+}
+.smartcard-timeline .tech-stage-three{
+  opacity:clamp(0,calc((var(--smart-progress) - .75)*6.6667),1);
+  background:linear-gradient(145deg,#f97ab8,#fbb2d9 56%,#df9cff);
+  color:#24142a;
+  transform:translate3d(0,calc((1 - var(--smart-progress))*25px),0) rotate(-12deg)
+}
+.tech-motion-label{position:absolute;bottom:15px;right:5px;letter-spacing:.17em;font-size:10px;font-weight:800;color:#8c758f}
+@media(max-width:790px){
+ .technology{min-height:125vh}
+ .technology-grid{top:68px;min-height:0;height:calc(100vh - 68px);align-content:center}
+ .technology-copy{padding-top:14px}
+ .technology-visual{height:360px}
+ .smartcard-timeline .tech-stage{scale:.82}
+}
+@media(max-width:520px){
+ .technology{min-height:125vh}
+ .technology-grid{position:relative;top:auto;height:auto;min-height:900px}
+ .technology-copy{padding:55px 0 0}
+ .technology-visual{height:390px}
+ .smartcard-timeline .tech-stage{scale:.8}
+}
+@media(prefers-reduced-motion:reduce){
+ .technology-copy h2 em{animation:none!important;background-position:0 0}
+ .smartcard-timeline .tech-stage-one{opacity:1!important;transform:rotate(15deg)!important}
+ .smartcard-timeline .tech-stage-two,.smartcard-timeline .tech-stage-three{opacity:0!important}
+ .smartcard-timeline .tech-stage{will-change:auto}
+}
