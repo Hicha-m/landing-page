@@ -110,3 +110,16 @@
  .smartcard-timeline .tech-stage-one{opacity:1!important}
  .smartcard-timeline .tech-stage-two,.smartcard-timeline .tech-stage-three{opacity:0!important}
 }
+
+
+/* Mobile QA, 2026-10-25: prevent desktop sticky timeline from leaving
+   an empty scroll runway on narrow screens. Keep the mobile card stable. */
+@media(max-width:520px){
+ .technology{min-height:0;padding-bottom:45px}
+ .technology-grid{height:auto;min-height:0;position:relative;top:auto;display:flex;flex-direction:column;gap:0;align-items:stretch}
+ .technology-copy{padding:55px 0 10px}
+ .technology-visual{height:360px;min-height:0;overflow:hidden}
+ .smartcard-timeline .tech-stage-one{opacity:1!important;transform:rotate(15deg)!important}
+ .smartcard-timeline .tech-stage-two,.smartcard-timeline .tech-stage-three{opacity:0!important}
+ .technology .tech-pop{pointer-events:none}
+}
