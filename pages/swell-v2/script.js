@@ -15,7 +15,6 @@ track.addEventListener("keydown",e=>{if(["ArrowLeft","ArrowRight"].includes(e.ke
 const reducedMotion=window.matchMedia("(prefers-reduced-motion: reduce)");
 const motionTargets=[
   {element:document.querySelector(".hero-card"),anchor:document.querySelector(".hero"),motion:"hero"},
-  {element:document.querySelector(".tech-card"),anchor:document.querySelector(".technology"),motion:"tech"},
   {element:document.querySelector(".together-card"),anchor:document.querySelector(".together"),motion:"together"},
   {element:document.querySelector(".phone"),anchor:document.querySelector(".app"),motion:"phone"}
 ].filter(item=>item.element&&item.anchor);
@@ -23,8 +22,15 @@ const clamp=(n,a,b)=>Math.max(a,Math.min(b,n));
 let motionQueued=false;
 function updateMotion(){
   motionQueued=false;
-  if(reducedMotion.matches){for(const item of motionTargets){item.element.style.removeProperty("--scroll-progress")}return}
+  if(reducedMotion.matches){for(const item of motionTargets){item.element.style.removeProperty("--scroll-progress")}document.querySelector(".technology")?.style.removeProperty("--smart-progress");return}
   const vh=window.innerHeight||900;
+  const smartSection=document.querySelector(".technology");
+  if(smartSection){
+    const smartRect=smartSection.getBoundingClientRect();
+    const trackLength=Math.max(1,smartRect.height-vh);
+    const progress=clamp(-smartRect.top/trackLength,0,1);
+    smartSection.style.setProperty("--smart-progress",progress.toFixed(4));
+  }
   for(const item of motionTargets){
     const rect=item.anchor.getBoundingClientRect();
     const progress=clamp((vh-rect.top)/(vh+rect.height),0,1);
